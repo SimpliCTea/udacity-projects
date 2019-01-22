@@ -10,8 +10,6 @@ from torchvision import datasets, models, transforms
 
 from PIL import Image
 
-from workspace_utils import active_session
-
 # Get a basic setup for the neural network
 def prepare_datasets(data_dir, batch_size = 32):
     """Creates and returns a basic setup for a neural network in pytorch
@@ -261,78 +259,77 @@ def train_model(model, criterion, optimizer, dataloaders, dataset_sizes, schedul
     # send model to the right device
     model.to(device)
 
-    with active_session():
-        start_time = time.time()
+    start_time = time.time()
 
-        best_model_wts = copy.deepcopy(model.state_dict())
-        best_acc = 0.0
-        print_every = 50
+    best_model_wts = copy.deepcopy(model.state_dict())
+    best_acc = 0.0
+    print_every = 50
 
-        for epoch in range(epochs):
-            print('Epoch {}/{}'.format(epoch+1, epochs))
-            print('-' * 30)
+    for epoch in range(epochs):
+        print('Epoch {}/{}'.format(epoch+1, epochs))
+        print('-' * 30)
 
-            for phase in ['train', 'valid']:
-                if phase == 'train':
-                    if scheduler is not None:
-                        scheduler.step()
-                    model.train()
-                else:
-                    model.eval()
+        for phase in ['train', 'valid']:
+            if phase == 'train':
+                if scheduler is not None:
+                    scheduler.step()
+                model.train()
+            else:
+                model.eval()
 
-                running_loss = 0.0
-                running_corrects = 0
-                step = 0
+            running_loss = 0.0
+            running_corrects = 0
+            step = 0
 
-                for images, labels in dataloaders[phase]:
-                    images, labels = images.to(device), labels.to(device)
-                    
-                    step += 1
-
-                    # never forget to zero gradients
-                    optimizer.zero_grad()
-
-                    # move forward through the network
-                    # only track history when training the model
-                    with torch.set_grad_enabled(phase == 'train'):
-                        outputs = model(images)
-                        pred_probabilities, pred_classes = torch.max(outputs, 1)
-                        loss = criterion(outputs, labels)
-
-                        # propagate the loss back through the network in training phase & update weights accordingly
-                        if phase == 'train':
-                            loss.backward()
-                            optimizer.step()
-
-                    # statistics
-                    running_loss += loss.item() * images.size(0)
-                    running_corrects += torch.sum(pred_classes == labels.data)
-                        
-                    if verbosity >= 2 and (step % print_every) == 0: 
-                        processed_images = step * dataloaders[phase].batch_size
-                        print('Batch: {}, Running Loss: {:.3f}, Running Corrects: {}, Processed Images: {}/{}, Current Accuracy: {:.3f}'.format(
-                            step, running_loss / processed_images, running_corrects, processed_images, dataset_sizes[phase], running_corrects.double() / processed_images))
-                        
-                epoch_loss = running_loss / dataset_sizes[phase]
-                epoch_acc = running_corrects.double() / dataset_sizes[phase]
+            for images, labels in dataloaders[phase]:
+                images, labels = images.to(device), labels.to(device)
                 
-                if verbosity >= 1:
-                    print('-' * 50)
-                    print('{} Loss: {:.3f} Acc: {:.3f}'.format(phase.title(), epoch_loss, epoch_acc))
-                    print('-' * 50)
-                # deep copy the model
-                if phase == 'valid' and epoch_acc > best_acc:
-                    best_acc = epoch_acc
-                    best_model_wts = copy.deepcopy(model.state_dict())
+                step += 1
 
+                # never forget to zero gradients
+                optimizer.zero_grad()
+
+                # move forward through the network
+                # only track history when training the model
+                with torch.set_grad_enabled(phase == 'train'):
+                    outputs = model(images)
+                    pred_probabilities, pred_classes = torch.max(outputs, 1)
+                    loss = criterion(outputs, labels)
+
+                    # propagate the loss back through the network in training phase & update weights accordingly
+                    if phase == 'train':
+                        loss.backward()
+                        optimizer.step()
+
+                # statistics
+                running_loss += loss.item() * images.size(0)
+                running_corrects += torch.sum(pred_classes == labels.data)
+                    
+                if verbosity >= 2 and (step % print_every) == 0: 
+                    processed_images = step * dataloaders[phase].batch_size
+                    print('Batch: {}, Running Loss: {:.3f}, Running Corrects: {}, Processed Images: {}/{}, Current Accuracy: {:.3f}'.format(
+                        step, running_loss / processed_images, running_corrects, processed_images, dataset_sizes[phase], running_corrects.double() / processed_images))
+                    
+            epoch_loss = running_loss / dataset_sizes[phase]
+            epoch_acc = running_corrects.double() / dataset_sizes[phase]
+            
             if verbosity >= 1:
-                print('')
+                print('-' * 50)
+                print('{} Loss: {:.3f} Acc: {:.3f}'.format(phase.title(), epoch_loss, epoch_acc))
+                print('-' * 50)
+            # deep copy the model
+            if phase == 'valid' and epoch_acc > best_acc:
+                best_acc = epoch_acc
+                best_model_wts = copy.deepcopy(model.state_dict())
 
-        time_elapsed = time.time() - start_time
         if verbosity >= 1:
-            print('-' * 30)
-            print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
-            print('Best val Acc: {:.3f}'.format(best_acc))
+            print('')
+
+    time_elapsed = time.time() - start_time
+    if verbosity >= 1:
+        print('-' * 30)
+        print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
+        print('Best val Acc: {:.3f}'.format(best_acc))
     
     model.load_state_dict(best_model_wts)
 
