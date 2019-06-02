@@ -11,9 +11,17 @@ Most of these projects are completed in a Jupyter Notebook using python and seve
 
 I'll give a brief description of all the projects in this repository. For more details feel free to check the code or notebooks, I usually try to explain what I'm doing as comments in the code and notebook.
 
-## Project 1
+## Project 1: Finding Donors
 
-## Project 2
+Using supervised learning algorithms, I had to build a model that would select potential donors for a fictional charity organisation based on census data. Three particular algorithms were tried out: k-nearest neighbours, random forests and gradient boosting.
+
+## Project 2: Image Classifier
+
+This project focused on deep learning. It is structured into two parts.
+
+Part 1 is a jupyter notebook in which a neural network is built up, which can distinguish between 102 different kinds of flowers.
+
+Part 2 takes the code from the notebook and creates a command line program that let's you train the model and also provide an image of a flower to the model and get the type of flower back.
 
 ## Project 3: CRISP-DM & BLOGPOST
 
