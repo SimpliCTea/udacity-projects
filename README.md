@@ -29,7 +29,7 @@ Based on the yearly stackoverflow survey I analyze various regional differences 
 
 For the analysis I follow the CRISP-DM process. Starting by developing a business and data understanding about the surveys, which I was previously unfmailiar with. Then, preparing the data for the analysis. And finally the analysis itself. For the analysis I provided various methods and procedures that I could use repeatedly to analyse and visualize the data. During this process I often had to iterate and go back to the data preparation tasks and even to the data understanding. Thus, this last part encompasses the Modelling, Evaluation and Deployment of the CRISP-DM.
 
-The results were published in form of a blogpost on Medium.
+The results were published in form of a blogpost on Medium, which can be found here: https://medium.com/@marcleonroemer/a-story-into-the-stackoverflow-yearly-survey-data-jungle-9f61d31f0f98.
 
 
 # License
