@@ -12,7 +12,7 @@ from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
 from sqlalchemy import create_engine
 
-from app_utils import tokenize, get_class_counts, create_topwords_img
+from app_utils import tokenize, get_category_counts, create_topwords_img
 
 app = Flask(__name__)
 
@@ -28,13 +28,13 @@ model = joblib.load("../models/classifier.pkl")
 @app.route('/')
 @app.route('/index')
 def index():
-    
+    """Route to landing page."""
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
 
-    class_counts = get_class_counts()
+    category_counts = get_category_counts()
 
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -60,12 +60,12 @@ def index():
         {
             'data': [
                 Bar(
-                    x=class_counts['labels'],
-                    y=class_counts['counts']
+                    x=category_counts['labels'],
+                    y=category_counts['counts']
                 )
             ],
             'layout': {
-                'title': 'Distribution of Message Labels',
+                'title': 'Distribution of Message Categories',
                 'yaxis': {
                     'title': "Count"
                 }
@@ -84,6 +84,7 @@ def index():
 # web page that handles user query and displays model results
 @app.route('/go')
 def go():
+    """Route to categorization results page."""
     # save user input in query
     query = request.args.get('query', '') 
 
@@ -101,6 +102,7 @@ def go():
 
 def main():
     if not os.path.isfile('./static/topwords.png'):
+        print('[app] - Did not find wordcloud. Creating one now...')
         create_topwords_img()
     app.run(host='0.0.0.0', port=3001, debug=True)
 

@@ -17,7 +17,14 @@ from sklearn.metrics import classification_report, precision_recall_fscore_suppo
 
 
 def load_data(database_filepath):
-    # load data from database
+    """Loads the data from the given database and splits it into X and Y
+    
+    Arguments:
+        database_filepath {string} -- path (including filename) to the database with the message data
+    
+    Returns:
+        tuple -- X pandas.Series with the messages, Y pandas.DataFrame with the categories
+    """
     engine = create_engine('sqlite:///' + database_filepath)
     df = pd.read_sql_table('disaster_messages', con=engine)
     X = df['message']
@@ -26,18 +33,34 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    """Takes text and normalizes, tokenizes, strips and lemmatizes it and removes stopwords.
+    
+    Arguments:
+        text {string} -- text to be tokenized
+    
+    Returns:
+        list -- array of word tokens based on the given text string
+    """
     lemmatizer = WordNetLemmatizer()
-    
     text = re.sub(r'[^a-zA-Z0-9]', ' ', text.lower())
-    
     token_list = word_tokenize(text)
-    token_list = [token.strip() for token in token_list if token not in stopwords.words("english")]
-    token_list = [lemmatizer.lemmatize(token) for token in token_list]
-        
+    token_list = [lemmatizer.lemmatize(t.strip()) for t in token_list if t not in stopwords.words("english")]
     return token_list
 
 
-def build_model(with_gridsearch):
+def build_model(with_gridsearch=False):
+    """Creates a pipeline with vectorizer, tfidf and classifier. Classifier is initiated with 
+    default values, optimized on the initial training set. For new data a new gridsearch can 
+    be build with preset parameters.
+    
+    Keyword Arguments:
+        with_gridsearch {bool} -- Setting this to true will place the pipeline in a 
+        scikit-learn GridSearchCV (default: {False})
+    
+    Returns:
+        [scikit-learn model] -- If with_gridsearch is False this will return a pipeline model, otherwise
+        it will return a grid search model
+    """
     model = Pipeline([
         ('vectorizer', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -49,6 +72,7 @@ def build_model(with_gridsearch):
         verbose=True
     )
     if with_gridsearch:
+        print('[INFO] - Using grid search to optimize model...')
         parameters = {
             'classifier__estimator__n_estimators': [10, 50],
             'classifier__estimator__min_samples_split': [2,4,6],
@@ -59,6 +83,13 @@ def build_model(with_gridsearch):
 
 
 def evaluate_model(model, X_test, Y_test):
+    """Takes a model and makes a prediction on a test set. The evaluation of the prediction is printed out.
+    
+    Arguments:
+        model {scikit-learn estimator} -- a valid scikit-learn estimator with a predict method
+        X_test {pandas.DataFrame} -- a dataframe with the test data
+        Y_test {pandas.DataFrame} -- a dataframe with the expected results
+    """
     Y_pred = model.predict(X_test)
     accuracy = (Y_pred == Y_test).mean().mean()
 
@@ -77,37 +108,44 @@ def evaluate_model(model, X_test, Y_test):
 
 
 def save_model(model, model_filepath):
+    """Saves model as pickle file using python joblib
+    
+    Arguments:
+        model {scikit learn estimator} -- the model to be saved
+        model_filepath {string} -- the path including filename where the model is to be saved
+    """
     joblib.dump(model.best_estimator_, model_filepath)
 
 
 def main():
     if len(sys.argv) in [3,4]:
-        database_filepath, model_filepath = sys.argv[1:]
+        database_filepath, model_filepath = sys.argv[1:3]
         with_gridsearch = False
         if len(sys.argv) == 4:
             with_gridsearch = sys.argv[-1]
-        print('Loading data...\n    DATABASE: {}'.format(database_filepath))
+
+        print('[INFO] - Loading data...\n    DATABASE: {}'.format(database_filepath))
         X, Y = load_data(database_filepath)
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
         
-        print('Building model...')
+        print('[INFO] - Building model...'))
         model = build_model(with_gridsearch)
         
-        print('Training model...')
+        print('[INFO] - Training model...')
         model.fit(X_train, Y_train)
         
-        print('Evaluating model...')
+        print('[INFO] - Evaluating model...')
         evaluate_model(model, X_test, Y_test)
 
-        print('Saving model...\n    MODEL: {}'.format(model_filepath))
+        print('[INFO] - Saving model...\n    MODEL: {}'.format(model_filepath))
         if with_gridsearch:
             model = model.best_estimator_
         save_model(model, model_filepath)
 
-        print('Trained model saved!')
+        print('[INFO] - Trained model saved!')
 
     else:
-        print('Please provide the filepath of the disaster messages database '\
+        print('[WARNING] - Please provide the filepath of the disaster messages database '\
               'as the first argument and the filepath of the pickle file to '\
               'save the model to as the second argument. Optionally you can '\
               'optimize the model with a gridsearch; to do so, provide True as'\

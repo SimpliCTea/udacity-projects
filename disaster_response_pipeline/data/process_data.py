@@ -41,7 +41,7 @@ def clean_data(df):
     df = pd.concat([df.drop(columns='categories'), categories], axis=1)
 
     # remove duplicates
-    print('{} duplicate ids found. Removing them now...'.format(df[df.duplicated(subset='id')].shape[0]))
+    print('[INFO] - {} duplicate ids found. Removing them now...'.format(df[df.duplicated(subset='id')].shape[0]))
     df.drop_duplicates(subset='id', inplace=True)
 
     return df
@@ -69,20 +69,20 @@ def main():
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
 
-        print('Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
+        print('[INFO] - Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
               .format(messages_filepath, categories_filepath))
         df = load_data(messages_filepath, categories_filepath)
 
-        print('Cleaning data...')
+        print('[INFO] - Cleaning data...')
         df = clean_data(df)
         
-        print('Saving data...\n    DATABASE: {}'.format(database_filepath))
+        print('[INFO] - Saving data...\n    DATABASE: {}'.format(database_filepath))
         save_data(df, database_filepath)
         
-        print('Cleaned data saved to database!')
+        print('[INFO] - Cleaned data saved to database!')
     
     else:
-        print('Please provide the filepaths of the messages and categories '\
+        print('[WARNING] - Please provide the filepaths of the messages and categories '\
               'datasets as the first and second argument respectively, as '\
               'well as the filepath of the database to save the cleaned data '\
               'to as the third argument. \n\nExample: python process_data.py '\
