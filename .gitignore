@@ -2,7 +2,12 @@
 **/.ipynb_checkpoints
 
 # Python
-**/__pycache__
+**/**/__pycache__
 
 # Visual Studio Code
 **/.vscode
+
+# MacBook
+**/.DS_Store
+**/.AppleDouble
+**/.LSOverride
