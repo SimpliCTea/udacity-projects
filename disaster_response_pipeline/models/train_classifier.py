@@ -114,7 +114,7 @@ def save_model(model, model_filepath):
         model {scikit learn estimator} -- the model to be saved
         model_filepath {string} -- the path including filename where the model is to be saved
     """
-    joblib.dump(model.best_estimator_, model_filepath)
+    joblib.dump(model, model_filepath)
 
 
 def main():
@@ -128,7 +128,7 @@ def main():
         X, Y = load_data(database_filepath)
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
         
-        print('[INFO] - Building model...'))
+        print('[INFO] - Building model...')
         model = build_model(with_gridsearch)
         
         print('[INFO] - Training model...')
@@ -148,7 +148,7 @@ def main():
         print('[WARNING] - Please provide the filepath of the disaster messages database '\
               'as the first argument and the filepath of the pickle file to '\
               'save the model to as the second argument. Optionally you can '\
-              'optimize the model with a gridsearch; to do so, provide True as'\
+              'optimize the model with a gridsearch; to do so, provide True as '\
               'your third argument. \n\nExample: python train_classifier.py'\
               ' ../data/DisasterResponse.db classifier.pkl True')
 
