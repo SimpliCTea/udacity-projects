@@ -3,6 +3,7 @@ import plotly
 import pandas as pd
 import joblib
 import os
+import sys
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -104,7 +105,14 @@ def main():
     if not os.path.isfile('./static/topwords.png'):
         print('[app] - Did not find wordcloud. Creating one now...')
         create_topwords_img()
-    app.run(host='0.0.0.0', port=3001, debug=True)
+    if len(sys.argv) == 2 and sys.argv[-1] == 'auto_host':
+        app.debug = True
+        app.run()
+    else:
+        print('[app] - If you cannot access the web-app, try running '\
+                'python run.py auto_host and use the host and port provided '\
+                'automatically by the server (possibly 127.0.0.1:5000).')
+        app.run(host='0.0.0.0', port=3001, debug=True)
 
 
 if __name__ == '__main__':

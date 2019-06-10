@@ -78,7 +78,8 @@ def build_model(with_gridsearch=False):
             'classifier__estimator__min_samples_split': [2,4,6],
             'classifier__estimator__max_features': [.1, .2, 'sqrt', 'log2']
         }
-        model = GridSearchCV(model, parameters, n_jobs=-1, verbose=3)
+        #model = GridSearchCV(model, parameters, n_jobs=-1, verbose=3)
+        model = GridSearchCV(model, parameters, verbose=3)
     return model
 
 
@@ -121,8 +122,8 @@ def main():
     if len(sys.argv) in [3,4]:
         database_filepath, model_filepath = sys.argv[1:3]
         with_gridsearch = False
-        if len(sys.argv) == 4:
-            with_gridsearch = sys.argv[-1]
+        if len(sys.argv) == 4 and sys.argv[-1] == 'with_gridsearch':
+            with_gridsearch = True
 
         print('[INFO] - Loading data...\n    DATABASE: {}'.format(database_filepath))
         X, Y = load_data(database_filepath)
@@ -147,10 +148,10 @@ def main():
     else:
         print('[WARNING] - Please provide the filepath of the disaster messages database '\
               'as the first argument and the filepath of the pickle file to '\
-              'save the model to as the second argument. Optionally you can '\
-              'optimize the model with a gridsearch; to do so, provide True as '\
+              'save the model to as the second argument. Optionally, you can '\
+              'optimize the model with a gridsearch; to do so, provide with_gridsearch as '\
               'your third argument. \n\nExample: python train_classifier.py'\
-              ' ../data/DisasterResponse.db classifier.pkl True')
+              ' ../data/DisasterResponse.db classifier.pkl with_gridsearch')
 
 
 if __name__ == '__main__':
