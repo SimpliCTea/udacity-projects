@@ -38,6 +38,8 @@ def clean_data(df):
     for column in categories:
         categories[column] = categories[column].str[-1]
         categories[column] = pd.to_numeric(categories[column])
+        # let's make sure this stays binary; 1 means category applies; 0 (formerly 0 or 2) means it doesn't
+        categories[column] = categories[column].apply(lambda x: 1 if x == 1 else 0)
     df = pd.concat([df.drop(columns='categories'), categories], axis=1)
 
     # remove duplicates

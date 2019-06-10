@@ -93,19 +93,14 @@ def evaluate_model(model, X_test, Y_test):
     """
     Y_pred = model.predict(X_test)
     accuracy = (Y_pred == Y_test).mean().mean()
-
-    print('='*50)
-    print('[INFO] - Classification Reports:')
-    print('-'*50)
-    for i, column in enumerate(Y_test):
-        label_report = classification_report(Y_test.values[i], Y_pred[i])
-        print('Label: {}'.format(column))
-        print('-'*50)
-        print(label_report)
-        print('\n')
-    print('-'*50)
+    report = classification_report(Y_test, Y_pred, target_names=Y_test.columns)
+    print('='*70)
+    print('[INFO] - Classification Report:')
+    print('-'*70)
+    print(report)
+    print('-'*70)
     print('[INFO] - Overall accuracy: {:.2f}%'.format(accuracy*100))
-    print('='*20 + ' END REPORTS ' + '='*20)
+    print('='*30 + ' END REPORTS ' + '='*30)
 
 
 def save_model(model, model_filepath):
