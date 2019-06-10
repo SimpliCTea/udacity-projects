@@ -2,6 +2,15 @@
 
 In this project a basic web-application was built that allows you to analyse a message and categorize it to quickly understand its main topics. The messages used for training the model are from a disaster message dataset provided by Figure Eight (https://www.figure-eight.com/dataset/combined-disaster-response-data/). You can however provide your own message dataset and retrain the model on it, even perform another gridsearch if you want to optimize the model with the new dataset.
 
+## Files
+
+- In the root directory you'll find a requirements.txt with information on the used packages as well as two jupyter notebooks that were used to prepare the pipelines and test out various parameters
+- In the app directory you will find the flask server (run.py) as well as a python script with a few helper functions (app_utils.py). Additionally, there is a 'templates' directory for the html templates and a 'static' directory for the wordcloud image
+- In the data directory is a python script to run the ETL pipeline (process_data.py), the two CSV files with the Figure Eight datasets and an SQLite database created by the ETL pipeline
+- In the models directory is a python script to run the ML pipeline and a pickled model pretrained on the data and optimized using gridsearch.
+
+**The classifier.pkl file and the two CSV files with the datasets are uploaded using GIT LFS (https://git-lfs.github.com/) !**
+
 ## Requirements:
 
 The projects is mostly scripted in python 3 with a bit of javascript for the web-application. For the pipelines I used pandas, scikit-learn, SQLAlchemy, joblib and nltk for text processing. The wordcloud is created using the wordcloud package (https://amueller.github.io/word_cloud/), which is also available on conda-forge. The web-applocication also makes use of Flask and plotly. 
