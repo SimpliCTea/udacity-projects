@@ -31,13 +31,39 @@ For the analysis I follow the CRISP-DM process. Starting by developing a busines
 
 The results were published in form of a blogpost on Medium, which can be found here: https://medium.com/@marcleonroemer/a-story-into-the-stackoverflow-yearly-survey-data-jungle-9f61d31f0f98.
 
-## Project4: Disaster Response Pipeline
+## Project 4: Disaster Response Pipeline
 
 This project focuses on building Extract-Transform-Load (ETL) pipelines to automate data processing and Machine Learning (ML) pipelines to automate model building and optimization. In addition, it touches building data dashboards and web-apps using Flask and Plotly.js. 
 
 As part of this project a dataset provided by Figure Eight (https://www.figure-eight.com/) with short messages sent in areas of crisis is analysed. With the ETL-pipeline the datasets are extracted from the given CSV files, cleaned and then loaded into a SQLite database. The ML-pipeline takes the data from the database, runs it through Natural Language Processing (NLP) and then feeds it to a machine learning model. To optimize the parameters for this pipeline a grid search is be performed. The resulting model is used in a slim web-app that gives an overview of the dataset and allows a user to enter a message and have it classified to one of several categories. This would allow helpers to immediately understand the topics of a message, such as water or medical help, to realize quickly what kind of help is required.
 
 For more details check the Readme in the project's directory.
+
+## Project 5: Recommendation Engines
+
+This project explores different methods to build recommendation engines. The project was based on data from the IBM Watson Studio Platform, the goal was to recommend articles to users. At the end of the notebook a brief suggestion was given, how to test and implement the recommendation engine(s). The different approaches were explained in detail within the notebook - here's a quick overview on them:
+
+### Knowlege-based recommendations
+
+Using common metrics such as item interaction count, ratings or novelty and then providing a recommendations based on the top/latest items. Example: "Top 5 articles this month."
+For this project, the recommendations were based on the interaction count, meaning how many users had interacted with an article.
+
+### Collaborative Filtering
+
+Using similarity or distance based methods comparing users or items and recommending the items "similar" users liked. Example: "Users who ... also liked ..."
+For this project a similarity based approach was used, calculated using a user-item-matrix and taking the dot product of the given user and the matrix.
+
+### Content-based Filtering
+
+Optional part of the project. Not yet implemented.
+
+### Matrix factorization
+
+Using SVD or similar methods (eg. Funk SVD), this approach tries to find latent features in the data and make predictions based on these latent features. As with any machine learning approach the data is split up in training and validation sets to make sure the algorithm does not over or underfit and to best optimize the parameters (such as the number of latent features).
+
+To use this approach you have to be aware of the Cold Start problem, which occurs when you have users or items in the testing set that are not in the training set. These users/items are "new" meaning we have no data about them and can therefore not use them (yet). Regarding the choice of which algorithm to use the sparsity of the user item matrix comes into play. Normal SVD cannot handle missing data, in such a case other approaches such as Funk SVD should be used.
+
+In the case of this project, the user-item-matrix did not contain missing data. Normal SVD was used, the cold start problem was handled.
 
 # License
 
