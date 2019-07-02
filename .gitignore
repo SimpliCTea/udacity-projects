@@ -17,3 +17,9 @@
 **/**/.DS_Store
 **/**/.AppleDouble
 **/**/.LSOverride
+
+# Dog Project
+dog_breed_classifier/bottleneck_features/
+dog_breed_classifier/haarcascades/
+dog_breed_classifier/saved_models/
+
