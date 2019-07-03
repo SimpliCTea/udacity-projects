@@ -24,4 +24,5 @@ dog_breed_classifier/cnn_setup/haarcascades/
 dog_breed_classifier/cnn_setup/requirements/
 dog_breed_classifier/cnn_setup/data/
 dog_breed_classifier/cnn_setup/fun_test_images/
+dog_breed_classifier/flask_app/instance/
 
