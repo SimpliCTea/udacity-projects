@@ -13,8 +13,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
-        <img src="static/default_img.png" />
+    <div id="img_holder" class="col-lg-6">
+        <img src="static/images/default_img.png" />
     </div>
     <div class="col-lg-6">
         <div class="row">Human vs Dog</div>
@@ -22,4 +22,8 @@
         <div class="row">Results</div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script onload="main();" src="static/js/main.js"></script>
 {% endblock %}
