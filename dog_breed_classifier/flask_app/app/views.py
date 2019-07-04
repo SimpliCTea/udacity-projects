@@ -6,6 +6,8 @@ from keras.preprocessing import image
 
 from app import app
 
+from app.breed_classifier import predict
+
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 def path_to_tensor(img_path):
@@ -47,25 +49,17 @@ def classify():
             return redirect(request.url)
         if img and allowed_file(img.filename):
             filename = secure_filename(img.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            basedir = os.path.dirname(os.path.abspath(__file__))
-            print('DEBUG')
-            print(img)
-            print(filename)
-            print(filepath)
-            print('instance_path')
-            print(app.instance_path)
-            print('realpath')
-            print(os.path.join(os.path.dirname(os.path.realpath(__file__)), '/test.txt'))
-            print(os.path.dirname(os.path.abspath(__file__)))
-            print(os.path.abspath("."))
-            print('savepath')
-            print(os.path.join(basedir, filepath))
+            print('[VIEWS]: Received image: {}'.format(filename))
+            filepath = os.path.join(app.instance_path, filename)
             img.save(os.path.join(app.instance_path, filename))
-            print(path_to_tensor(filepath))
-            return redirect(url_for('uploaded_file', filename=filename))
-    return jsonify({
-        'success': 'file uploaded successfully',
-        'file_type': str(type(img))
-    })
+            print('[VIEWS]: Saved image under: {}'.format(filepath))
+            prediction = predict(filepath)
+            # remove image again, we don't want to save all user images after all
+            os.remove(filepath)
+            print('[VIEWS]: Deleted image: {}'.format(filename))
+            #return redirect(url_for('uploaded_file', filename=filename))
+            return jsonify({
+                'success': 'Image received and predicted',
+                'data': prediction
+            })
         
