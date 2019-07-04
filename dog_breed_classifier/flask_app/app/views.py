@@ -10,6 +10,16 @@ from app.breed_classifier import predict
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
+RESPONSE_MSG_DICT = {
+    'dog': 'Yep, I can see a dog. I\'d say it\'s a {}.',
+    'human': ('Well, this is not a dog. I\' say the person in this'
+        'image most closely resembles a {}. Can you see it too?'),
+    'undefined': ('I\'m sorry, this may be me, but I don\'t see a dog '
+        'or human in this image. Please make sure to upload an image '
+        'of a dog or a human with clearly visible face. That makes it '
+        'easier for me.')
+}
+
 def path_to_tensor(img_path):
     # loads RGB image as PIL.Image.Image type
     img = image.load_img(img_path, target_size=(224, 224))
@@ -48,18 +58,29 @@ def classify():
             print('No selected file')
             return redirect(request.url)
         if img and allowed_file(img.filename):
+            # get image and store it temporarily
             filename = secure_filename(img.filename)
             print('[VIEWS]: Received image: {}'.format(filename))
             filepath = os.path.join(app.instance_path, filename)
             img.save(os.path.join(app.instance_path, filename))
             print('[VIEWS]: Saved image under: {}'.format(filepath))
-            prediction = predict(filepath)
+            # set up response
+            resp = {
+                'success': False,
+                'message': '',
+                'data': {}
+            }
+            # try to get the prediction on the image
+            try:
+                resp['data'] = predict(filepath)
+                resp['success'] = True
+                resp['message'] = RESPONSE_MSG_DICT[resp['data']['race']].format(resp['data']['breed'])
+            # catch AssertionError as this means the algorithm couldn't detect a dog or human face in the image
+            except AssertionError:
+                resp['message'] = RESPONSE_MSG_DICT['undefined']
             # remove image again, we don't want to save all user images after all
             os.remove(filepath)
             print('[VIEWS]: Deleted image: {}'.format(filename))
-            #return redirect(url_for('uploaded_file', filename=filename))
-            return jsonify({
-                'success': 'Image received and predicted',
-                'data': prediction
-            })
+            # return the prediction and the result string as json
+            return jsonify(resp)
         
