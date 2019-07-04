@@ -119,7 +119,7 @@ def predict_breed(img_path):
     predicted_vector = model.predict(bottleneck_feature)
     # return dog breed that is predicted by the model
     breed_names = load_breeds()
-    return breed_names[np.argmax(predicted_vector)]
+    return breed_names[np.argmax(predicted_vector)].replace('_', ' ')
 
 def predict(img_path):
     """Takes image path and tries to predict whether it's a dog or human and the resembling dog breed.

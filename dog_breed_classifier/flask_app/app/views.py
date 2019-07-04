@@ -11,13 +11,17 @@ from app.breed_classifier import predict
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 RESPONSE_MSG_DICT = {
-    'dog': 'Yep, I can see a dog. I\'d say it\'s a {}.',
-    'human': ('Well, this is not a dog. I\' say the person in this'
-        'image most closely resembles a {}. Can you see it too?'),
-    'undefined': ('I\'m sorry, this may be me, but I don\'t see a dog '
+    'dog': ('<p class="result pb-2 bb">Yep, I can see a dog. I\'d say it\'s a :</p>'
+        '<p class="result-strong"><span>{}</span></p>'
+        '<p class="result pt-2 bt"> Was I right? :P</p>'),
+    'human': ('<p class="result pb-2 bb">Well, this is not a dog. I\'d say the person in this '
+        'image most closely resembles a:</p>'
+         '<p class="result-strong"><span>{}</span></p>'
+         '<p class="result pt-2 bt">Can you see it too?</p>'),
+    'undefined': ('<p class="result">I\'m sorry, this may be me, but I don\'t see a dog '
         'or human in this image. Please make sure to upload an image '
         'of a dog or a human with clearly visible face. That makes it '
-        'easier for me.')
+        'easier for me.</p>')
 }
 
 def path_to_tensor(img_path):

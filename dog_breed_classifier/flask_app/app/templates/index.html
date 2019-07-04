@@ -13,21 +13,38 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12">
-        <input type="file" id="img_input" accept="image/*" multiple="false">
-    </div>
-</div>
-<div class="row">
-    <div id="img_holder" class="col-lg-6">
-        <img class="img-fluid" src="static/images/default_img.png">
+    <div class="col-lg-6 col-sm-12">
+        <div id="img_card" class="px-1 text-center">
+            <div id="img_thumbnail" class="px-1 bx-1">
+                <img class="img-fluid fixed-size rounded" src="static/images/default_img.png" alt="Card image cap">
+            </div>
+            <div id="img_input_container" class="mt-1">
+                    <input type="file" id="img_input" accept="image/*" multiple="false">
+            </div>
+        </div>
     </div>
     <div class="col-lg-6">
-        <div class="row">Human vs Dog</div>
+        <div class="row h-divider">
+            <p>
+                Once you have uploaded an image with a dog you can use the button below to send it to the server.
+                The image will be analysed and I'll try to predict the breed of the dog. Once the prediction is 
+                made the image will be deleted from the server, so don't worry, I'm not keeping anything :)
+            </p>
+            <p>
+                Oh btw. if you want to have some fun you can try this with an image of a person. I'll try to predict
+                the dog breed the person resembles the most. Just make sure the face of the person is clearly visible.
+            </p>
+        </div>
+        <hr>
         <div class="row">
             <button id="classify_button" type="button" class="btn btn-primary btn-lg btn-block">Classify</button>
         </div>
-        <div class="row">Comments</div>
-        <div class="row">Results</div>
+        <hr>
+        <div id="responseDiv" class="row mt-2">
+            <p class="result">
+                I'll display my prediction here once I'm done.
+            </p>
+        </div>
     </div>
 </div>
 {% endblock %}

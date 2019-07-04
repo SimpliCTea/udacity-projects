@@ -1,0 +1,25 @@
+img.fixed-size {
+    height: 400px;
+    width: auto;
+}
+
+.result {
+    width: 100%;
+    text-align: center;
+}
+
+.result-strong {
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: skyblue;
+}
+
+.bt {
+    border-top: 1px dashed black;
+}
+
+.bb {
+    border-bottom: 1px dashed black
+}

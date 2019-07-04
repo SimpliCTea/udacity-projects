@@ -14,10 +14,14 @@ function fileDrop(event){
     event.stopPropagation();
     event.preventDefault();
 
-    var file = event.originalEvent.dataTransfer.files[0];
-    USER_IMAGE = file;
-
-    renderImage(file);
+    // store the image temporarily, so we can use it
+    var img = event.originalEvent.dataTransfer.files[0];
+    USER_IMAGE = img;
+    // update the input field as well for consistency
+    //$("#img_input").val(img.name);
+    document.querySelector('#img_input').files = event.originalEvent.dataTransfer.files;
+    // render the image as thumbnail
+    renderImage(img);
 }
 
 function handleDragOver(event) {
@@ -39,7 +43,7 @@ function renderImage(file){
     // inject an image with the src url
     reader.onload = function(event) {
         the_url = event.target.result;
-        $('#img_holder').html('<img class="img-fluid" src="' + the_url + '" />');
+        $('#img_thumbnail').html('<img class="img-fluid fixed-size rounded" src="' + the_url + '"  alt="Some image"/>');
     }
 
     // when the file is read it triggers the onload event above.
@@ -49,10 +53,15 @@ function renderImage(file){
 function displayClassification(response){
     console.log('Success');
     console.log(response);
+    $('#responseDiv').html(response.message)
+}
+
+function displayError(qXHR, textStatus, errorMessage){
+    console.log(errorMessage);
+    $('#responseDiv').html('<p  class="result">Woops! En error occurred. Oh noes. Not sure what happened. Can you try it again?</p>')
 }
 
 function requestClassification() {
-    //$.get('/classify', file, displayClassification);
     var formData = new FormData();
     formData.append("img", USER_IMAGE);
 
@@ -65,17 +74,15 @@ function requestClassification() {
         processData: false,
         contentType: false,
         success: displayClassification,
-        error:  function(jqXHR, textStatus, errorMessage) {
-            console.log(errorMessage); // Optional
-        }
+        error:  displayError
       });
 }
 
 var main = function () {
     console.log('Hello World!');
     $("#img_input").change(fileInput);
-    $('#img_holder').on('dragover', handleDragOver);
-    $('#img_holder').on('dragenter', handleDragEnter);
-    $('#img_holder').on('drop', fileDrop);
+    $('#img_card').on('dragover', handleDragOver);
+    $('#img_card').on('dragenter', handleDragEnter);
+    $('#img_card').on('drop', fileDrop);
     $('#classify_button').click(requestClassification)
 }
