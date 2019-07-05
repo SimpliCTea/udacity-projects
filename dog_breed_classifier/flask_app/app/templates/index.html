@@ -3,15 +3,41 @@
 {% block body %}
 <div class="row">
     <div class="col-lg-12">
-        <h1>Welcome! I'm glad you found me.</h1>
+        <h1 class="mt-2 mb-2">Welcome! I'm glad you found me.</h1>
         <p class="lead">
-                I'm your friendly neighbourhood dog breed classifier. (sth accuracy)
+                I'm your friendly neighbourhood dog breed classifier. Do you have a picture of a dog and want to know what breed 
+                it is? Let me take a look, maybe I can help you.
         </p>
+        <hr>
+        <h2>
+            How To:
+        </h2>
         <p class="">
-                How To ...
+            <ol>
+                <li>
+                    You can select an image of a dog to be classified by dragging it onto the grey default image below. 
+                    Alternatively you can use the File Input field below, that way I'll open up a file browser for you.
+                </li>
+                <li>
+                    Once an image has been selected or dropped I'll display on the left side.
+                </li>
+                <li>
+                    On the right side you can see a button with "Classify". Using this button you ask me to name you 
+                    the corresponding dog breed. The image will be uploaded to the server for this purpose, but don't worry,
+                    the image will be deleted after the algorithm is done with it, so no personal data is saved.
+                </li>
+                <li>
+                    I'll display the results below the "Classify" Button. Enjoy!
+                </li>
+            </ol>
+        </p>
+        <p>
+            Oh btw. if you want to have some fun you can try this with an image of a person. I'll try to predict
+            the dog breed the person resembles the most. Just make sure the face of the person is clearly visible.
         </p>
     </div>
 </div>
+<hr>
 <div class="row">
     <div class="col-lg-6 col-sm-12">
         <div id="img_card" class="px-1 text-center">
@@ -26,14 +52,10 @@
     <div class="col-lg-6">
         <div class="row h-divider">
             <p>
-                Once you have uploaded an image with a dog you can use the button below to send it to the server.
-                The image will be analysed and I'll try to predict the breed of the dog. Once the prediction is 
-                made the image will be deleted from the server, so don't worry, I'm not keeping anything :)
+                Click on the button below to find out the dog breed. Just make sure there is actually a dog or a 
+                human face in the picture. Enjoy :)
             </p>
-            <p>
-                Oh btw. if you want to have some fun you can try this with an image of a person. I'll try to predict
-                the dog breed the person resembles the most. Just make sure the face of the person is clearly visible.
-            </p>
+            
         </div>
         <hr>
         <div class="row">
@@ -50,6 +72,8 @@
 {% endblock %}
 
 {% block scripts %}
-
+<script>
+    var navActive = '/'
+</script>
 <script onload="main();" src="/static/js/main.js"></script>
 {% endblock %}

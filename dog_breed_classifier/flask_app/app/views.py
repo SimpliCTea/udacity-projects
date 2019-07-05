@@ -11,7 +11,7 @@ from app.breed_classifier import predict
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 RESPONSE_MSG_DICT = {
-    'dog': ('<p class="result pb-2 bb">Yep, I can see a dog. I\'d say it\'s a :</p>'
+    'dog': ('<p class="result pb-2 bb">Yep, I can see a dog. I\'d say it\'s a:</p>'
         '<p class="result-strong"><span>{}</span></p>'
         '<p class="result pt-2 bt"> Was I right? :P</p>'),
     'human': ('<p class="result pb-2 bb">Well, this is not a dog. I\'d say the person in this '

@@ -23,3 +23,12 @@ img.fixed-size {
 .bb {
     border-bottom: 1px dashed black
 }
+
+.ref {
+    width: 100%;
+}
+
+.logo {
+    width: auto;
+    height: 50px;
+}

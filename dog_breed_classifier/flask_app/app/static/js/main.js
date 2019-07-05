@@ -83,11 +83,19 @@ function requestClassification() {
       });
 }
 
+function updateNav() {
+    $('#navigation').find('li').removeClass('active');
+    $('#navigation').find('a[href="'+ navActive +'"]').addClass('active');
+}
+
 var main = function () {
-    console.log('Hello World!');
-    $("#img_input").change(fileInput);
-    $('#img_card').on('dragover', handleDragOver);
-    $('#img_card').on('dragenter', handleDragEnter);
-    $('#img_card').on('drop', fileDrop);
-    $('#classify_button').click(requestClassification)
+    //console.log('Hello World!');
+    updateNav();
+    if (navActive == '/') {
+        $("#img_input").change(fileInput);
+        $('#img_card').on('dragover', handleDragOver);
+        $('#img_card').on('dragenter', handleDragEnter);
+        $('#img_card').on('drop', fileDrop);
+        $('#classify_button').click(requestClassification)
+    }
 }

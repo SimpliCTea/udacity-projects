@@ -1,10 +1,71 @@
 {% extends "base.html" %}
-{% block title %}About{% endblock %}
+{% block title %}Powered by ...{% endblock %}
 {% block body %}
 <div class="row">
     <div class="col-lg-12">
-            <h1>This app is powered by:</h1>
-            <p class="lead">A list with all the modules and stuff (bootstrap, flask, udacity, keras, tensorflow, ...</p>
+            <h1 class="mt-2 mb-2">This app is powered by:</h1>
+            <hr>
+            <p class="ref mt-1 mb-1 text-center">
+                <img class="logo" src="static/images/python-logo.png" alt="Python Logo">
+                <span class="ml-3 mr-2"> | </span>
+                <span class="ml-2 mr-2"> Python </span>
+                <span class="ml-2 mr-3"> | </span>
+                <a href="https://www.python.org/"  target="_blank">Keras Homepage</a>
+                </p>
+            <hr>
+            <p class="ref mt-1 mb-1 text-center">
+                <img class="logo" src="static/images/keras-logo.jpg" alt="Keras Logo">
+                <span class="ml-3 mr-2"> | </span>
+                <span class="ml-2 mr-2"> Keras </span>
+                <span class="ml-2 mr-3"> | </span>
+                <a href="https://keras.io/"  target="_blank">Keras Homepage</a>
+            </p>
+            <hr>
+            <p class="ref mt-1 mb-1 text-center">
+                <img class="logo" src="static/images/tensorflow-logo.png" alt="TensorFlow Logo">
+                <span class="ml-3 mr-2"> | </span>
+                <span class="ml-2 mr-2"> TensorFlow </span>
+                <span class="ml-2 mr-3"> | </span>
+                 <a href="https://tensorflow.org"  target="_blank">TensorFlow Homepage</a>
+            </p>
+            <hr>
+            <p class="ref mt-1 mb-1 text-center">
+                <img class="logo" src="static/images/flask-logo.jpg" alt="Flask Logo">
+                <span class="ml-3 mr-2"> | </span>
+                <span class="ml-2 mr-2"> Flask </span>
+                <span class="ml-2 mr-3"> | </span>
+                <a href="http://flask.pocoo.org"  target="_blank">Flask Homepage</a>
+            </p>
+            <hr>
+            <p class="ref mt-1 mb-1 text-center">
+                <img class="logo" src="static/images/bootstrap-logo.png" alt="Bootstrap Logo">
+                <span class="ml-3 mr-2"> | </span>
+                <span class="ml-2 mr-2"> Bootstrap </span>
+                <span class="ml-2 mr-3"> | </span>
+                <a href="https://getbootstrap.com/"  target="_blank">Bootstrap Homepage</a>
+            </p>
+            <hr>
+            <p class="ref mt-1 mb-1 text-center">
+                <img class="logo" src="static/images/jquery-logo.png" alt="jQuery Logo">
+                <span class="ml-3 mr-2"> | </span>
+                <span class="ml-2 mr-2"> jQuery </span>
+                <span class="ml-2 mr-3"> | </span>
+                <a href="https://jquery.com/"  target="_blank">jQuery Homepage</a>
+            </p>
+            <hr>
+            <p class="ref mt-1 mb-1 text-center">
+                <img class="logo" src="static/images/udacity-logo.png" alt="Udacity Logo">
+                <span class="ml-3 mr-2"> | </span>
+                <span class="ml-2 mr-2"> Udacity </span>
+                <span class="ml-2 mr-3"> | </span>
+                <a href="https://www.udacity.com/"  target="_blank">Udacity Homepage</a>
+            </p>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    var navActive = '/references'
+</script>
+<script onload="main();" src="/static/js/main.js"></script>
 {% endblock %}

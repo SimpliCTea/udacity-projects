@@ -3,8 +3,57 @@
 {% block body %}
 <div class="row">
     <div class="col-lg-12">
-            <h1>The About Page</h1>
-            <p class="lead">You can learn more about my website here.</p>
+            <h1 class="mt-2 mb-2">About this app</h1>
+            <p class="lead">You can learn more about the app here here.</p>
+            <p>
+                This app was built as part of a Capstone project for the 
+                <a href="https://www.udacity.com/" target="_blank">Udacity</a> Data Science Nanodegree.
+                The projects consists of two parts. In the first part a Convolutional Neural Network (CNN) was built, 
+                to classify dog breeds based on a given image. In the second part this flask app was built as a 
+                way to use the prediction algorithm.
+            </p>
+            <p>
+                The first part was done mostly using a jupyter notebook, in which I loaded and prepared the data. 
+                Based on the data I built a CNN from scratch to get a better understanding for the subject. Later in the 
+                notebook I build an algorithm to identify whether there is a dog or human face in the picture and if so 
+                predict the resembling dog breed. The CNN for this prediction was built using the Resnet50 model, which 
+                was trained on the Imagenet database. It currently has an accuracy of roughly 85%, which is not bad considering 
+                how hard it is to differentiate between some dog breeds. As the algorithm is capable of differing between 133 
+                different dog breeds, the chance of random guessing would be 0.75%. 
+            </p>
+            <p>
+                In the second part I build this app using flask for my backend and bootstrap for my frontend. The file upload uses 
+                the File API which most browsers support today. The core of the app is on the starting page. Currently it only has one 
+                functionality: predicting the breed of a dog and displaying the results. However, I have a few idea how this could be 
+                expanded in future versions:
+            </p>
+            <p>
+                <ul>
+                    <li>Currently the algorithm has an accuracy of about 85%. Predicting the breed of a dog is not easy, considering that even humans have troubles differing between some breeds, however I believe that the accuracy could still be increased with more optimization or further refinement of the algorithm.</li>
+                    <li>
+                        The app currently only returns the name of the breed. The algorithm differs between 133 breeds and while I personally like dogs I have to admit I don't know many of these breeds. Therefore, I think it would be nice to also display an image of the predicted breed. Possibly using a web search and implementing it below the prediction.
+                    </li>
+                    <li>
+                        I personally find it very interesting how a neural network "sees" objects. I think it could be fun to add either functionalities like google deep dream or simply display how the neural network sees the predicted dog breed on the page as well, similar to what has been done here: <a href="https://blog.keras.io/how-convolutional-neural-networks-see-the-world.html" target="_blank">Keras Blog - How CNNs see the world.</a> 
+                    </li>
+                    <li>
+                        Currently the classifier only works for 1 human face or dog in the picture. It may be nice to expand that so it can recognize more than just one, like a dog and his/her owner. Or several dogs/human faces.
+                    </li>
+                    <li>
+                        This is obviously only a very simple version of the app and I'm sure there are plenty optimizations that can be done regarding how the files are handled and how everything is displayed on the page.
+                    </li>
+                </ul>
+            </p>
+            <p>
+                You can find the source code in my <a href="https://github.com/SimpliCTea/udacity-projects/tree/master/dog_breed_classifier" target="_blank">Github repository</a>. 
+                Here you can also find additional (more technical) information on the entire process.
+            </p>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    var navActive = '/about'
+</script>
+<script onload="main();" src="/static/js/main.js"></script>
 {% endblock %}
