@@ -2,6 +2,8 @@
 
 ## Project Overview
 
+This is one of the capstone projects for the Udacity Data Science Nanodegree.  The goal is to train a convolutional neural network to classify dog breeds on a given picture and display the results. The data was provided by Udacity.
+
 The projected is divided into two parts. Part 1 focused on building and training a convolutional neural network to classify dog breeds. Part 2 focused on building a simple flask app that can be used to upload an image of a dog or human and get the resembling dog breed.
 
 ### Part 1 - Building the CNN
@@ -9,13 +11,15 @@ The projected is divided into two parts. Part 1 focused on building and training
 The process is described in detail in the dog-app notebook in cnn_setup/dog_app.*, so I will not explain the entire process here in the README.
 
 The following topics are covered in the notebook:
-- The data used for the training and testing
+- The data used for the training and testing (the data was provided by Udacity)
 - Building an algorithm to determine whether there is a dog in the given picture.
 - Building an algorithm to determine whether there is a human face in the given picture.
 - Building a CNN from scratch.
 - Building a CNN based on VGG16 using transfer learning.
 - Building, training and optimizing a CNN based on Resnet50 using transfer learning.
 - Putting it all together in a single algorithm, that takes a picture, verifies a dog or human is in it and then returns the predicted dog breed.
+
+The classifier currently has an accuracy of roughly 85%, which is not perfect, but regarding the difficulty of accurately determining the breed of a dog it's decent. The classifier can differ between 133 dog breeds, so the chance of guessing right is about 0.75%.
 
 ### Part 2 - Building the Flask app
 
@@ -24,7 +28,7 @@ As a front end for the prediction algorithm I set up a flask app. To do so I...
 - set up a simple web-based frontend using bootstrap and jquery.
 - transfered the prediction algorithm from the jupyter notebook to a python file
 - build a flask API '/classify' which,
-    - takes an image and saves it on the server
+    - takes an image and saves it on the server (uploaded using the File API and Flask Werkzeug)
     - verifies a dog or human face is in the image
     - predicts the dog breed
     - deletes the image again (there is no point in saving the file permanently)
@@ -66,3 +70,9 @@ The current version of the app works fine, however it is very basic - not much m
 ## License
 
 This project is distributed under the Udacity License (@see LICENSE.txt).
+
+## Final Notes
+
+I'd like to thank Udacity for this course. The structure of the lectures and the projects are great. When I started this nanodegree the topic seemed far away and daunting to me, but due to this program I've gotten an easy way into the field of machine learning.
+
+What I found most challenging about this project was actually handling the File API and making sure the file is saved properly on the server. :D I guess it's been a while since I did web development, haha. It was a cool project though. I also liked some of the other potential capstone projects - especially the spark project. However, neural networks are a really interesting field and there is so much you can do with them. The best part of the project for me was learning how a convolutional neural network "sees the world". This  is definitely a topic I'll look into in more detail after the Nanodegree program.
