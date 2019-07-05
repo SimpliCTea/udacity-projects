@@ -65,6 +65,14 @@ To use this approach you have to be aware of the Cold Start problem, which occur
 
 In the case of this project, the user-item-matrix did not contain missing data. Normal SVD was used, the cold start problem was handled.
 
+## Project 6: [Capstone Project] Dog Breed Classifier
+
+Using a Convolutional Neural Network and transfer learning an image classification algorithm was designed that determines whether a dog or human face is in a given picture and returns the resembling dog breed. The process for creating this algorithm and training the CNN ist described in a Juypter Notebook.
+
+To use the prediction algorithm a Flask app was built. The app allows a user to upload an image via a simple website and receive the prediction which is displayed on the website as well. The image itself is only temporarily saved on the server and deleted after the prediction, so the user can be sure no personal data is saved.
+
+I've not currently deployed the app anywhere but you can try it following the instructions in the project readme. (Check ./dog_breed_classifier)
+
 # License
 
 Well, this repository is mostly used for the submission of these projects. The general outline of the projects (often icl. the layout of the jupyter notebook) usually comes from udacity. Much of the code is written by myself and you can use it in whatever way pleases you. If you are doing the same or similar course and use these project files for help, please make sure you follow the Udacity guidelines on using someone else's code.
