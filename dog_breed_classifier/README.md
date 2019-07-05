@@ -29,7 +29,8 @@ As a front end for the prediction algorithm I set up a flask app. To do so I...
     - predicts the dog breed
     - deletes the image again (there is no point in saving the file permanently)
     - returns the prediction as JSON object
-- the prediction is displayed in the app; instructions on how to use it can also be found there
+
+The prediction is displayed in the app - instructions on how to use it can also be found there.
 
 ## Requirements
 
@@ -52,6 +53,15 @@ Once all requirements are met and you activated the virtual environment, you can
 - further instructions on how to use the app are described on the starting page
 
 If you are interested in how the CNN was trained, checkout the jupyter notebook at cnn_setup/dog_app.ipynb or the html version of it at cnn_setup/dog_app.html. There you'll find the entire process explained with coding examples.
+
+## Further Development
+
+The current version of the app works fine, however it is very basic - not much more than an MVP. For the scope of this project, especially regarding the limited time frame, this is enough. Nonetheless, I do have several ideas how to improve it at a later stage:
+- Currently the algorithm has an accuracy of about 85%. Predicting the breed of a dog is not easy, considering that even humans have troubles differing between some breeds, however I believe that the accuracy could still be increased with more optimization or further refinement of the algorithm.
+- The app currently only returns the name of the breed. The algorithm differs between 133 breeds and while I personally like dogs I have to admit I don't know many of these breeds. Therefore, I think it would be nice to also display an image of the predicted breed. Possibly using a web search and implementing it below the prediction.
+- I personally find it very interesting how a neural network "sees" objects. I think it could be fun to add either functionalities like google deep dream or simply display how the neural network sees the predicted dog breed on the page as well, similar to what has been done here: https://blog.keras.io/how-convolutional-neural-networks-see-the-world.html
+- Currently the classifier only works for 1 human face or dog in the picture. It may be nice to expand that so it can recognize more than just one, like a dog and his/her owner. Or several dogs/human faces.
+- I'm sure there is a lot more great ideas on how to improve this app, and I may get back to it after finishing this nanodegree. :)
 
 ## License
 
