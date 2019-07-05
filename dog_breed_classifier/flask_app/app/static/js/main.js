@@ -62,11 +62,16 @@ function displayError(qXHR, textStatus, errorMessage){
 }
 
 function requestClassification() {
+    // show loader
+    $('#responseDiv').html('<div class="result"><img class="img-fluid" src="static/images/ripple-1.5s-200px.svg" alt="Loading ..."></div>')
+
+    // load image into FormData
     var formData = new FormData();
     formData.append("img", USER_IMAGE);
 
     console.log(formData);
 
+    // transfer image to server
     $.ajax({
         url: '/classify',
         type: 'POST',

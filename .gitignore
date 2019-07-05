@@ -21,7 +21,6 @@
 # Dog Project
 dog_breed_classifier/cnn_setup/bottleneck_features/
 dog_breed_classifier/cnn_setup/haarcascades/
-dog_breed_classifier/cnn_setup/requirements/
 dog_breed_classifier/cnn_setup/data/
 dog_breed_classifier/cnn_setup/fun_test_images/
 
