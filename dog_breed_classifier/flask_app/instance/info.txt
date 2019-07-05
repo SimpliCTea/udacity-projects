@@ -1,0 +1,1 @@
+This folder is used to temporarily store the images for classification. They'll be deleted after the classification is done.

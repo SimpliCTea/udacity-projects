@@ -66,7 +66,7 @@ def classify():
             filename = secure_filename(img.filename)
             print('[VIEWS]: Received image: {}'.format(filename))
             filepath = os.path.join(app.instance_path, filename)
-            img.save(os.path.join(app.instance_path, filename))
+            img.save(filepath)
             print('[VIEWS]: Saved image under: {}'.format(filepath))
             # set up response
             resp = {

@@ -202,3 +202,4 @@ dependencies:
   - tensorflow==1.0.0
   - theano==0.8.2
   - tqdm==4.11.2
+  - flask==0.12.2
